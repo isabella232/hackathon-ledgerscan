@@ -2,12 +2,16 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import "@ledgerhq/react-ui/assets/fonts"; // all fonts are consumed by the bundler and outputted to /assets
 import { StyleProvider } from "@ledgerhq/react-ui";
-import styles from '../styles/App.module.css';
 import styled from 'styled-components'
 import { useRouter } from 'next/router';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 const Root = styled.div`
+  background-color: ${(p) => p.theme.colors.background.main};
+`
+
+const App = styled.div`
   background-color: ${(p) => p.theme.colors.background.main};
 `
 
@@ -22,7 +26,7 @@ function RootStyle({ children } : { children: JSX.Element }){
         {children}
       </App>
       <Footer />
-  </div>
+  </Root>
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
