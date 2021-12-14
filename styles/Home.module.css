@@ -3,7 +3,7 @@
 }
 
 .main {
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 100px);
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -13,10 +13,12 @@
 }
 
 .header {
-  height: 80px;
+  display: flex;
+  padding: 0 2em;
+  min-height: 80px;
 }
 
-.footer a {
+.footerItem {
   padding-left: 40px;
   padding-right: 50px;
   color: #ffffff;
@@ -30,14 +32,6 @@
   background-color: #000000;
   justify-content: center;
   align-items: center;
-}
-
-.footer h {
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
 }
 
 .title a {

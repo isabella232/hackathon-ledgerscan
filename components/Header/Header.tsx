@@ -1,18 +1,14 @@
-import {Icon, Text, Flex} from '@ledgerhq/react-ui';
+import {Header as LedgerHeader} from '@ledgerhq/react-ui';
 import React from "react";
 import SplitSearch from '../SplitSearch/SplitSearch'
 import styles from '../../styles/Home.module.css'
 
-  export const Header = (): JSX.Element => {
+export const Header = (): JSX.Element => {
+  const left = (<p>LOGO</p>);
+  const right = (<SplitSearch/>)
+    
   return (
-    <div className={styles.header}>
-      <Flex flexGrow={2} flexDirection="row" justifyContent="space-evenly" >
-        <Text fontWeight="semiBold" variant={"paragraph"}>
-          Ledger
-      </Text>
-      <SplitSearch />
-      </Flex>
-      </div>
+    <LedgerHeader left={left} right={right} />
   );
 };
 
