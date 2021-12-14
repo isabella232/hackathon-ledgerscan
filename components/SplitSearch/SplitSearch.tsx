@@ -32,14 +32,12 @@ const selectStyles: StylesConfig<Option> = {
 };
 
 type Option = typeof options[0];
-export const SplitSearch = (args: Props): React.ReactNode => {
+export const SplitSearch = (): JSX.Element => {
   const [leftValue1, setLeftValue1] = React.useState<Option | null>(options[0]);
   const [rightValue1, setRightValue1] = React.useState<string>("");
   return (
-    <div>
-    <FlexBox flexDirection="column" rowGap={3}>
+    <FlexBox flexDirection="row" rowGap={3} maxWidth="600px">
       <SplitInput
-        {...args}
         renderLeft={(props: SelectInputProps<Option>) => (
           <SelectInput
             value={leftValue1}
@@ -54,19 +52,17 @@ export const SplitSearch = (args: Props): React.ReactNode => {
             {...props}
           />
         )}
-        renderRight={(props) => (
+        renderRight={() => (
           <SearchInput
             value={rightValue1}
             placeholder="Address"
             textAlign="right"
             unwrapped
             onChange={setRightValue1}
-            {...props}
           />
         )}
       />
     </FlexBox>
-    </div>
   );
 };
 
