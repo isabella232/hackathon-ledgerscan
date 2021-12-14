@@ -27,7 +27,7 @@ export default function TX(){
           setTx(result)
         }
       if (router.isReady) {
-          fetchData()
+        fetchData()
       }
     }, [coin, hash, router.isReady])
     

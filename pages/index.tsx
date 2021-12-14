@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 import React, { useState } from "react";
-import {SearchInput, SplitInput, SelectInput, Text, Flex} from '@ledgerhq/react-ui'
+import {SearchInput, SplitInput, SelectInput, Text, Button} from '@ledgerhq/react-ui'
 
 export const BtcLikeCoins = [
   "bch"  , "btc"  , "btc_testnet" ,
@@ -194,14 +194,14 @@ const Home: NextPage = () => {
         onChange={setCoin} 
         options={options}
         unwrapped
-        />
-        <SearchInput 
+      />
+      <SearchInput 
         value={input} 
         onChange={setInput} 
         placeholder="Address, Block, Transction ..."
         unwrapped
-        />
-        <input type="submit" />
+      />
+      <Button variant="main" backgroundColor="F5F5F5" onClick={onSubmit}>Search</Button>
       </form>
       <ul>
         {links.map(link => <li><a onClick={_ => pushLink(link)}>{JSON.stringify(link)}</a></li>)}
