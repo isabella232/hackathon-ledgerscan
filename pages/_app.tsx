@@ -9,10 +9,18 @@ import Footer from '../components/Footer/Footer';
 
 const Root = styled.div`
   background-color: ${(p) => p.theme.colors.background.main};
+  color: ${(p) => p.theme.colors.neutral.c100};
+  padding: 0 2rem;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 const App = styled.div`
-  background-color: ${(p) => p.theme.colors.background.main};
+  width: 1440px;
 `
 
 function RootStyle({ children } : { children: JSX.Element }){
