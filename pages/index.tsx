@@ -146,8 +146,15 @@ const Home: NextPage = () => {
     }
   }
 
+  const reset = () => {
+    setCoin("")
+    setInput("")
+    setLinks([])
+  }
+
   const onSubmit = async (evt:any) => {
     evt.preventDefault();
+    reset()
     let links = await peekCoins(searchInput({coin, input}))
     links.forEach(console.log)
     if(links.length == 0) {
@@ -168,7 +175,6 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1>Ledgerscan</h1>
         <div className={styles.grid}>
           <form onSubmit={onSubmit}>
             <select onChange={e => setCoin(e.target.value)}>
