@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css'
 import React, { useState } from "react";
 
@@ -31,6 +32,12 @@ export type SearchRequest = {
   number?: number,
   hash?: string,
   address?: string
+}
+
+export type SearchLink = {
+  kind: "tx" | "block" | "address"
+  coin: string,
+  param: string,
 }
 
 function coinOrDefault(search:SearchInput, defaults:string[]):string[] {
@@ -80,65 +87,74 @@ function searchInput(search:SearchInput):SearchRequest {
 
 async function explorerGET(path:string) {
   let url = `${EXPLORER_STAGING_URL}${path}`
-  let res = await fetch(url)
-  if(res.ok) {
-    return {status: "ok", body: res.body}
-  } else {
-    return {status: "ko"}
-  }
+  return await fetch(url)
 }
 
-async function peekTxHash(coin:string, hash:string) {
-  return await explorerGET(`/${coin}/transactions/${hash}`)
+async function peekTxHash(coin:string, hash:string):Promise<SearchLink[]> {
+  let r = await explorerGET(`/${coin}/transactions/${hash}`)
+  return r.ok ? [{kind:"tx", coin, param: hash}] : []
 }
 
-async function peekBlockHash(coin:string, hash:string) {
-  return await explorerGET(`/${coin}/blocks/${hash}`)
+async function peekBlockHash(coin:string, hash:string):Promise<SearchLink[]> {
+  let r = await explorerGET(`/${coin}/blocks/${hash}`)
+  return r.ok ? [{kind:"block", coin, param: hash}] : []
 }
 
-async function peekHeight(coin:string, height:number) {
-  return await explorerGET(`/${coin}/blocks/${height}`)
+async function peekHeight(coin:string, height:number): Promise<SearchLink[]> {
+  let r = await explorerGET(`/${coin}/blocks/${height}`)
+  return r.ok ? [{kind:"block", coin, param: height.toString()}] : []
 }
 
-async function peekHash(coin:string, hash:string) {
-  let tx = await peekTxHash(coin, hash)
-  if(tx.status === "ko") {
+async function peekHash(coin:string, hash:string): Promise<SearchLink[]> {
+  let res = await peekTxHash(coin, hash)
+  if(res.length == 0) {
     return await peekBlockHash(coin, hash)
   } else {
-    return tx
+    return res
   }
+}
+
+async function peekAddress(coin:string, address:string): Promise<SearchLink[]> {
+  let r = await explorerGET(`/${coin}/addresses/${address}/transactions?batch_size=1&filtering=true&noinput=true`)
+  return r.ok ? [{kind:"address", coin, param: address}] : []
 }
 
 async function peekCoins(request:SearchRequest) {
   console.log(JSON.stringify(request))
-  let awaits:Promise<boolean>[] = request.coins.map(coin => {
-    if(request.number !== undefined) {
-      return peekHeight(coin, request.number).then(it => it.status == "ok")
-    }
-    if(request.hash !== undefined) {
-      return peekHash(coin, request.hash).then(it => it.status == "ok")
-    }
-    return Promise.resolve(false)
+  let awaits:Promise<SearchLink[]>[] = request.coins.map(coin => {
+    if(request.number)  { return peekHeight(coin, request.number) }
+    if(request.hash)    { return peekHash(coin, request.hash) }
+    if(request.address) { return peekAddress(coin, request.address) }
+    return Promise.resolve([])
   })
-
-  let actives:boolean[] = await Promise.all(awaits)
-
-  let selected = request.coins.filter((_, i) => actives[i])
-
-  console.log(request.coins)
-  console.log(selected)
-
-  return selected
+  return (await Promise.all(awaits)).flatMap(x => x)
 }
 
-
 const Home: NextPage = () => {
+
+  const router = useRouter()
+
   const [coin, setCoin] = useState("");
   const [input, setInput] = useState("");
 
+  const pushLink = (link:SearchLink) => {
+    switch(link.kind) {
+      case "block":   router.push({pathname: `/[coin]/block/[param]`,   query: {coin:link.coin, param:link.param}})
+      case "tx":      router.push({pathname: `/[coin]/tx/[param]`,      query: {coin:link.coin, param:link.param}})
+      case "address": router.push({pathname: `/[coin]/account/[param]`, query: {coin:link.coin, param:link.param}})
+    }
+  }
+
   const onSubmit = async (evt:any) => {
       evt.preventDefault();
-      await peekCoins(searchInput({ coin, input}))
+      let links = await peekCoins(searchInput({ coin, input}))
+      links.forEach(console.log)
+      if(links.length == 0) {
+      }
+      if(links.length == 1) {
+        pushLink(links[0])
+      }
+
   }
   return (
     <div className={styles.container}>
