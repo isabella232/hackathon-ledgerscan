@@ -21,14 +21,14 @@ export default function TX(){
     const { coin, hash } = router.query
 
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await fetchTx(coin as string, hash as string)
-            console.log(result)
-            setTx(result)
-          }
-        if (router.isReady) {
-            fetchData()
+      const fetchData = async () => {
+          const result = await fetchTx(coin as string, hash as string)
+          console.log(result)
+          setTx(result)
         }
+      if (router.isReady) {
+          fetchData()
+      }
     }, [coin, hash, router.isReady])
     
     console.log('props', coin, hash);
