@@ -134,8 +134,9 @@ const Home: NextPage = () => {
 
   const router = useRouter()
 
-  const [coin, setCoin] = useState("");
-  const [input, setInput] = useState("");
+  const [coin, setCoin] = useState("")
+  const [input, setInput] = useState("")
+  const [links, setLinks] = useState(new Array<SearchLink>())
 
   const pushLink = (link:SearchLink) => {
     switch(link.kind) {
@@ -146,16 +147,18 @@ const Home: NextPage = () => {
   }
 
   const onSubmit = async (evt:any) => {
-      evt.preventDefault();
-      let links = await peekCoins(searchInput({ coin, input}))
-      links.forEach(console.log)
-      if(links.length == 0) {
-      }
-      if(links.length == 1) {
-        pushLink(links[0])
-      }
-
+    evt.preventDefault();
+    let links = await peekCoins(searchInput({coin, input}))
+    links.forEach(console.log)
+    if(links.length == 0) {
+      return
+    }
+    if(links.length == 1) {
+      return pushLink(links[0])
+    }
+    return setLinks(links)
   }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -165,6 +168,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <h1>Ledgerscan</h1>
         <div className={styles.grid}>
           <form onSubmit={onSubmit}>
             <select onChange={e => setCoin(e.target.value)}>
@@ -174,6 +178,9 @@ const Home: NextPage = () => {
             <input type="submit" value="Scan!"/>
           </form>
         </div>
+        <ul>
+          {links.map(link => <li onClick={_ => pushLink(link)}>{JSON.stringify(link)}</li>)}
+        </ul>
       </main>
       
       <footer className={styles.footer}>
