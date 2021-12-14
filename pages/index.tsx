@@ -18,9 +18,6 @@ export const EthLikeCoins =
 
 export const AllCoins = [...BtcLikeCoins, ...EthLikeCoins]
 
-export const EXPLORER_STAGING_URL: string = 
-  "https://explorers.api-01.vault.ledger-stg.com/blockchain/v3"
-
 
 export type SearchInput = {
   input: string, 
@@ -85,6 +82,9 @@ function searchInput(search:SearchInput):SearchRequest {
   }
 }
 
+export const EXPLORER_STAGING_URL: string = 
+  "https://explorers.api-01.vault.ledger-stg.com/blockchain/v3"
+
 async function explorerGET(path:string) {
   let url = `${EXPLORER_STAGING_URL}${path}`
   return await fetch(url)
@@ -116,7 +116,13 @@ async function peekHash(coin:string, hash:string): Promise<SearchLink[]> {
 
 async function peekAddress(coin:string, address:string): Promise<SearchLink[]> {
   let r = await explorerGET(`/${coin}/addresses/${address}/transactions?batch_size=1&filtering=true&noinput=true`)
-  return r.ok ? [{kind:"address", coin, param: address}] : []
+  if(r.ok) {
+    let { txs } = await r.json()
+    if(txs.length) {
+      return [{kind:"address", coin, param: address}]
+    }
+  }
+  return []
 }
 
 async function peekCoins(request:SearchRequest) {
@@ -139,10 +145,11 @@ const Home: NextPage = () => {
   const [links, setLinks] = useState(new Array<SearchLink>())
 
   const pushLink = (link:SearchLink) => {
+    console.log(link)
     switch(link.kind) {
-      case "block":   router.push({pathname: `/[coin]/block/[param]`,   query: {coin:link.coin, param:link.param}})
-      case "tx":      router.push({pathname: `/[coin]/tx/[param]`,      query: {coin:link.coin, param:link.param}})
-      case "address": router.push({pathname: `/[coin]/account/[param]`, query: {coin:link.coin, param:link.param}})
+      case "block":   router.push({pathname: `/[coin]/block/[block]`, query: {coin:link.coin, block:link.param}}); break
+      case "tx":      router.push({pathname: `/[coin]/tx/[hash]`, query: {coin:link.coin, hash:link.param}}); break
+      case "address": router.push({pathname: `/[coin]/account/[address]`, query: {coin:link.coin, address:link.param}}); break
     }
   }
 
@@ -185,7 +192,7 @@ const Home: NextPage = () => {
           </form>
         </div>
         <ul>
-          {links.map(link => <li onClick={_ => pushLink(link)}>{JSON.stringify(link)}</li>)}
+          {links.map(link => <li><a onClick={_ => pushLink(link)}>{JSON.stringify(link)}</a></li>)}
         </ul>
       </main>
       
