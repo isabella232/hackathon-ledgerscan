@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
-
+import {Transaction} from '../../../components/Transaction/Transaction'
+import * as trans from '../../../components/Transaction/model'
 export const EXPLORER_STAGING_URL: string = 
   "https://explorers.api-01.vault.ledger-stg.com/blockchain/v3"
 
@@ -30,10 +31,14 @@ export default function TX(){
         }
     }, [coin, hash, router.isReady])
     
-    console.log('props', coin, hash)
+    console.log('props', coin, hash);
+    console.log(JSON.stringify(tx));
+    console.log("hell")
+    console.log(tx as trans.TX)
     return (
       <div>
-          {JSON.stringify(tx)}
+          {/* {JSON.stringify(tx)} */}
+          {!!tx && <Transaction {...tx}/>}
       </div>
     )
 }

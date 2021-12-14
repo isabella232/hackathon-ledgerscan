@@ -12,10 +12,25 @@
   align-items: center;
 }
 
-.header {
+.table {
+  background-color: #000000;
+}
+
+.confirmation {
+  padding: 1rem 1em;
+  border-radius: 5px;
+  background-color: rgba(77, 75, 75, 0.925);
+  color: white;
   display: flex;
-  padding: 0 2em;
-  min-height: 80px;
+  flex: 0 0 100%;
+  justify-content: space-around;
+}
+
+.tableCell {
+  background-color: black;
+  color: rgba(255, 255, 255, 1) !important;
+  border-bottom-width: 1px;
+  border-bottom-color: gray;
 }
 
 .footerItem {
