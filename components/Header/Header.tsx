@@ -6,7 +6,7 @@ import styles from '../../styles/Home.module.css'
   export const Header = (): JSX.Element => {
   return (
     <div className={styles.header}>
-      <Flex flexGrow={2} flexDirection="row" alignItems="right" justifyContent="space-evenly" >
+      <Flex flexGrow={2} flexDirection="row" justifyContent="space-evenly" >
         <Text fontWeight="semiBold" variant={"paragraph"}>
           Ledger
       </Text>
