@@ -33,10 +33,13 @@ a {
 }
 
 .split-search-container > div > div > div:nth-child(1)  {
-  width: 38% !important;
+  width: 40% !important;
 }
 
 .split-search-container > div > div > div:nth-child(3)  {
-  width: 62% !important;
-  text-align: left;
+  width: 60% !important;
+}
+
+.split-search-container > div > div > div:nth-child(3) > div > input  {
+  text-align: left !important;
 }
