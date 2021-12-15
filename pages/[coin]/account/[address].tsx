@@ -4,6 +4,7 @@ import { FaBitcoin } from 'react-icons/fa';
 import { BiCopy } from 'react-icons/bi';
 import { Alert, Button, Icon, Table} from "@ledgerhq/react-ui";
 import { useState, useEffect } from "react"
+import {BtcTx} from "../../../components/BtcTx/BtcTx"
 
 const ColumnStyle = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ async function fetchAccount(coin:string, address:string): Promise<AccountView> {
     return { address, txs, utxos, balance }
 }
 
-function MyButton({text}) {
+function MyButton(text: string) {
     return (
         <Button variant="main" outline={false}>{text}</Button>
     )
@@ -66,7 +67,10 @@ function Wrapper(account: AccountView) {
     : <RowStyle/>
     return (
         <ColumnStyle>
-            <RowStyle><FaBitcoin/><h2>MY BITCOIN ACCOUNT 1</h2><MyButton text="Buy"></MyButton><MyButton text="Swap"></MyButton></RowStyle>
+            <RowStyle><FaBitcoin/><h2>MY BITCOIN ACCOUNT 1</h2>
+              <Button variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</Button>
+              <Button variant="color" size={"small"} disabled={false} outline={false}>{"Swap"}</Button>
+            </RowStyle>
             <RowStyle><Icon name="QrCode"/><ColumnStyle><a>Address</a><a>{account.address} <BiCopy/></a></ColumnStyle></RowStyle>
             <Divider/>
             <RowStyle>
@@ -102,9 +106,11 @@ export default function Account() {
         <div>
           <div> Address {account?.address}</div>
           <div> Transactions {account?.txs.length}</div>
-          <div> Utxos {JSON.stringify(account?.utxos)}</div>
-          <div> Balance {account?.balance}</div>
+          {/* <div> Utxos {JSON.stringify(account?.utxos)}</div> */}
           <Wrapper {...account} ></Wrapper>
+          {account?.txs.length > 0 && <BtcTx {...account.txs[0]} />}
+          {account?.txs.length > 1 && <BtcTx {...account.txs[1]} />}
+          <div> Balance {account?.balance}</div>
         </div>
 
         : 

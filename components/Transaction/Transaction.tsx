@@ -74,7 +74,8 @@ const Confirmation = (confirmations: number, address: string, status?: boolean) 
           <CopyButton text={address}/>
         </div>
       </div>
-      <TxStatus confirmed={!!status} ok="SUCCESS" ko="PENDING" />
+      <TxStatus status={!!status} ok="SUCCESS" ko="PENDING" />
+
     </div>
 )
 }
