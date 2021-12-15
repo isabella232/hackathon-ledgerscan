@@ -1,6 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { SearchLink } from ".."
+import type { SearchLink } from "../../modules/explorer"
+import { Text, Box } from '@ledgerhq/react-ui'
+import { nameOf } from '../../modules/coins'
 
 export default function Omni(){
     const router = useRouter()
@@ -24,12 +26,19 @@ export default function Omni(){
 
     return (
       <div>
+        <Box py="15px">
+          <Text variant="h3" >{linkList[0]?.kind} - {linkList[0]?.param}</Text>
+        </Box>
+        <Box py="15px">
+          <Text variant="h3" >Found results on {linkList.length} chains : </Text>
+        </Box>
         <ul>
           {linkList.map( (link, key) => 
             <li key={key}>
-                <a onClick={_ => pushLink(link)}>
-                    {JSON.stringify(link)}
-                </a>
+                <Text variant="h4">{nameOf[link.coin]} </Text>
+                <Text variant="h4" onClick={_ => pushLink(link)}>
+                    {link.param}
+                </Text>
             </li>)}
         </ul>
       </div>

@@ -17,6 +17,7 @@ export const AllCoins = [...BtcLikeCoins, ...EthLikeCoins]
 export const selectCoins = ["all", ...AllCoins]
 
 export const iconOf = {
+    "all":         "/public/assets/icons/all.png",
     "bnb":         "/public/assets/icons/binance_chain.png",
     "bch":         "/public/assets/icons/bitcoin_cash.png",
     "btc":         "/public/assets/icons/bitcoin.png",
@@ -32,6 +33,7 @@ export const iconOf = {
     "eth_goerli":  "/public/assets/icons/ethereum_goerli.png",
     "kmd":         "/public/assets/icons/komodo.png",
     "ltc":         "/public/assets/icons/litecoin.png",
+    "matic":       "/public/assets/icons/polygon.png",
     "pivx":        "/public/assets/icons/pivx.png",
     "ppc":         "/public/assets/icons/peercoin.png",
     "qtum":        "/public/assets/icons/qtum.png",
@@ -42,7 +44,8 @@ export const iconOf = {
     "zec":         "/public/assets/icons/zcash.png",
 }
 
-export const nameOf = {
+export const nameOf:any = {
+    "all":         "All Chains",
     "bnb":         "Binance Smart Chain",
     "bch":         "Bitcoin Cash",
     "btc":         "Bitcoin",
@@ -54,10 +57,11 @@ export const nameOf = {
     "doge":        "Dogecoin",
     "etc":         "Ethereum Classic",
     "eth":         "Ethereum",
-    "eth ropsten": "Ethereum Ropsten",
-    "eth goerli":  "Ethereum Goerli",
+    "eth_ropsten": "Ethereum Ropsten",
+    "eth_goerli":  "Ethereum Goerli",
     "kmd":         "Komodo",
     "ltc":         "Litecoin",
+    "matic":       "Polygon",
     "pivx":        "PIVX",
     "ppc":         "Peercoin",
     "qtum":        "QTUM",
