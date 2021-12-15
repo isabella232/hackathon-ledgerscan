@@ -32,9 +32,5 @@ export default function TX(){
     }, [coin, hash, router.isReady])
     
     console.log('props', coin, hash);
-    return (
-      <div>
-          {!!tx && <Transaction {...tx}/>}
-      </div>
-    )
+    return !!tx ? <Transaction {...tx}/> : null
 }
