@@ -10,7 +10,7 @@ import Footer from '../components/Footer/Footer';
 const Root = styled.div`
   background-color: ${(p) => p.theme.colors.neutral.c00};
   color: ${(p) => p.theme.colors.neutral.c100};
-  min-height: 100vh;
+  min-height: calc(100vh - 98px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ const Root = styled.div`
 `
 
 const App = styled.div`
-  width: 1440px;
+  width: 1000px;
 `
 
 function RootStyle({ children } : { children: JSX.Element }){
