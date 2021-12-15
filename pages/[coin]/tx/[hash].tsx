@@ -32,8 +32,6 @@ export default function TX(){
     }, [coin, hash, router.isReady])
     
     console.log('props', coin, hash);
-    console.log(JSON.stringify(tx));
-    console.log("hell")
     console.log(tx as trans.TX)
     return (
       <div>

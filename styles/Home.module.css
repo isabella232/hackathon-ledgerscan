@@ -40,6 +40,16 @@
   justify-content: space-between;
 }
 
+.copyButton {
+  background-color: transparent;
+  color:rgba(146, 35, 250, 0.925);
+  border: none;
+}
+
+.copyButton  :hover {
+  color: white;
+}
+
 .tableCell {
   background-color: black;
   color: rgba(255, 255, 255, 1) !important;
