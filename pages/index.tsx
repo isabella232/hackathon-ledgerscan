@@ -18,27 +18,27 @@ const Home: NextPage = () => {
         queue={[
           {
             description: 'Enhance your security with the new ledger nano s Plus available now!',
-            image: '/sampleSlide.png',
+            image: '/s-plus.png',
             onClick: function noRefCheck(){},
             title: 'NEW PRODUCT'
           },
           {
             description: 'Learn more about Crypto at the ledger academy',
-            image: '/sampleSlide.png',
+            image: '/academy.png',
             onClick: function noRefCheck(){},
-            title: 'NEW PRODUCT'
+            title: 'BLOG'
           },
           {
-            description: 'Explorer as a service',
-            image: '/sampleSlide.png',
+            description: 'Deploy application on Ledger Scan: the ultimate multi-coin explorer',
+            image: '/explorer.png',
             onClick: function noRefCheck(){},
-            title: 'NEW PRODUCT'
+            title: 'NEW SERVICE'
           },
           {
-            description: 'Stake with Ledger now',
+            description: 'Earn rewards by staking on multiple chains on Ledger Live',
             image: '/sampleSlide.png',
             onClick: function noRefCheck(){},
-            title: 'NEW PRODUCT'
+            title: 'EARN CRYPTO'
           }
         ]}
       />

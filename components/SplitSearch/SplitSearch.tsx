@@ -98,7 +98,7 @@ export const SplitSearch = (): JSX.Element => {
         renderRight={() => (
           <SearchInput
             value={input}
-            placeholder="Address"
+            placeholder="Search an address, block or TX"
             textAlign="left"
             unwrapped
             onChange={(val: string) => {
