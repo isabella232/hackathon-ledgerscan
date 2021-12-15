@@ -195,9 +195,6 @@ const Home: NextPage = () => {
           {links.map(link => <li><a onClick={_ => pushLink(link)}>{JSON.stringify(link)}</a></li>)}
         </ul>
       </main>
-      
-      <footer className={styles.footer}>
-      </footer>
     </div>
   )
 }
