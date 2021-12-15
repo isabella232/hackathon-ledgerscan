@@ -1,26 +1,9 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import styles from '../styles/Home.module.css'
 import React, { useState } from "react";
 import { Carousel, Flex } from "@ledgerhq/react-ui"
 import { Logo } from '../components/Header/Header';
-
-export const BtcLikeCoins = [
-  "bch"  , "btc"  , "btc_testnet" ,
-  "btg"  , "dash" , "dcr" ,
-  "dgb"  , "doge" , "kmd" , 
-  "ltc"  , "pivx" , "ppc" ,
-  "qtum" , "via"  , "vtc" ,
-  "xsn"  , "zen"  , "zec"
-]
-
-export const EthLikeCoins =
- ["bnb" , "etc" , "eth" , "eth_ropsten" , "eth_goerli" , "matic"]
-
-export const AllCoins = [...BtcLikeCoins, ...EthLikeCoins]
-
-export const SelectCoins = ["all", ...AllCoins]
+import { AllCoins, BtcLikeCoins, EthLikeCoins, selectCoins } from '../modules/coins';
 
 export type SearchInput = {
   input: string, 
@@ -188,7 +171,7 @@ const Home: NextPage = () => {
       <div>
         <form onSubmit={onSubmit}>
           <select value={coin} onChange={e => setCoin(e.target.value)}>
-            { SelectCoins.map((e, k) => <option key={k} value={e}>{e}</option>)}
+            { selectCoins.map((e, k) => <option key={k} value={e}>{e}</option>)}
           </select>
           <label><input type="text" name={input} onChange={e => setInput(e.target.value)}/></label>
           <input type="submit" value="Scan!"/>
