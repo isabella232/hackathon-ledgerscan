@@ -10,15 +10,20 @@
   flex-wrap: wrap;
   padding: 1rem 1em;
   align-items: center;
+  font-family: Inter;
 }
 
 .txStatusConfirmed {
   border-radius: 3px;
-  border-width: 2px;
+  border-width: 1px;
   padding: 2px;
+  padding: 4px;
+  margin-right: 45px;
   border-style: solid;
-  border-color: aquamarine;
-  color: aquamarine;
+  border-color: rgb(104, 247, 91);
+  color: rgb(104, 247, 91);
+  font-weight: normal;
+  font-size: 15px;
   align-self: center;
 }
 
@@ -40,12 +45,14 @@
   display: flex;
   flex: 0 0 100%;
   justify-content: space-between;
+  font-family: Inter;
 }
 
 .copyButton {
   background-color: transparent;
-  color:rgba(146, 35, 250, 0.925);
+  color:rgba(153, 110, 253, 0.925);
   border: none;
+  align-self: center;
 }
 
 .copyButton  :hover {
@@ -57,6 +64,7 @@
   color: rgba(255, 255, 255, 1) !important;
   border-bottom-width: 1px;
   border-bottom-color: gray;
+  font-family: Inter !important;
 }
 
 .lastCell {
@@ -64,8 +72,7 @@
   color: rgba(255, 255, 255, 1) !important;
   border-bottom-width: 1px;
   border-bottom-color: gray;
-  width: 30px;
-
+  width: 25px;
 }
 
 .txHash {
@@ -73,6 +80,11 @@
   align-items: flex-start;
   padding-top: 5px;
   font-size: 12px;
+  padding-right: 5px;
+}
+
+.txHash p {
+  padding-right: 5px;
 }
 
 .footerItem {

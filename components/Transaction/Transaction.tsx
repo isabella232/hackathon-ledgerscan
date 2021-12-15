@@ -19,17 +19,26 @@ type Row = {
     copy?: boolean
 }
 
+const ETHPrice = 3878.46
+
 const rows = (tx: trans.TX): Row[] => [
     {name: 'Timestamp', value: tx.received_at },
-    {name: 'Value', value: tx.value.toString() },
+    {name: 'Value', value: toEth(tx.value) },
     {name: 'From', value: tx.from, copy: true },
     {name: 'To', value: tx.to, copy: true },
-    {name: 'Transaction Fee', value: (tx.gas_used * tx.gas_price).toString() },
+    {name: 'Transaction Fee', value: toEth(tx.gas_used * tx.gas_price) },
     {name: 'Ethereum Price', value: "$3,878.46" },
-    {name: 'Gas Limit', value: tx.max_fee_per_gas.toString() },
-    {name: 'Gas Fees', value: tx.gas_used.toString()},
-    {name: 'Gas Price', value: tx.gas_price.toString() },
+    {name: 'Gas Limit', value: toGwei(tx.max_fee_per_gas)  },
+    {name: 'Gas Fees', value: toGwei(tx.gas_used)},
+    {name: 'Gas Price', value: toGwei(tx.gas_price) },
 ]
+
+function toGwei(value: number): string {
+  return !!value ? (value / 1000000000) + " Gwei" : "N/A"
+}
+function toEth(value: number): string {
+  return !!value ? "ETH " + (value / 1000000000000000000) : "N/A"
+}
 
 const confirmation = (confirmations: number, address: string) => {
 return (
