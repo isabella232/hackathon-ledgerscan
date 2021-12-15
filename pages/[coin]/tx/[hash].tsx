@@ -28,7 +28,14 @@ export default function TX(){
             setTx(result)
           }
         if (router.isReady) {
+          if(coin === "ethereum") {
+            router.push({
+              pathname: `/[coin]/tx/[hash]`,
+              query: {coin:"eth", hash:hash}
+            })
+          } else {
             fetchData()
+          }
         }
     }, [coin, hash, router.isReady])
     
