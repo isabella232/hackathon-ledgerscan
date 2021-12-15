@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import "@ledgerhq/react-ui/assets/fonts"; // all fonts are consumed by the bundler and outputted to /assets
-import { StyleProvider } from "@ledgerhq/react-ui";
+import { Flex, StyleProvider } from "@ledgerhq/react-ui";
 import styled from 'styled-components'
 import { useRouter } from 'next/router';
 import Header from '../components/Header/Header';
@@ -10,7 +10,7 @@ import Footer from '../components/Footer/Footer';
 const Root = styled.div`
   background-color: ${(p) => p.theme.colors.neutral.c00};
   color: ${(p) => p.theme.colors.neutral.c100};
-  min-height: calc(100vh - 98px);
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -18,8 +18,10 @@ const Root = styled.div`
   align-items: center;
 `
 
-const App = styled.div`
+const App = styled(Flex)`
   width: 1000px;
+  flex: 1;
+  justify-content: space-around;
 `
 
 function RootStyle({ children } : { children: JSX.Element }){

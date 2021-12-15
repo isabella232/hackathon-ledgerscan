@@ -2,13 +2,13 @@ import {Header as LedgerHeader,Text, Log, Flex} from '@ledgerhq/react-ui';
 import styled from 'styled-components';
 import SplitSearch from '../SplitSearch/SplitSearch'
 
-export const LedgerLog = styled(Log).attrs(() => ({
+const LedgerLog = styled(Log).attrs(() => ({
   width: "150px"
 }))`
 `
-export const ScanPart = styled(Text)`
+const ScanPart = styled(Text)`
   line-height: 48px;
-  font-size: 28px;
+  font-size: 28px !important;
   padding-left: 15px;
 ` 
 
