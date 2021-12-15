@@ -16,6 +16,34 @@
   background-color: #000000;
 }
 
+.txHeader {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+  flex-wrap: wrap;
+  padding: 1rem 1em;
+  align-items: center;
+}
+
+.txStatusConfirmed {
+  border-radius: 3px;
+  border-width: 2px;
+  padding: 2px;
+  border-style: solid;
+  border-color: aquamarine;
+  color: aquamarine;
+}
+
+.txStatusPending {
+  border-radius: 1px;
+  border-width: 3px;
+  padding: 2px;
+  border-style: solid;
+  border-color: gray;
+  color: gray;
+}
+
 .confirmation {
   padding: 1rem 1em;
   border-radius: 5px;
@@ -23,7 +51,7 @@
   color: white;
   display: flex;
   flex: 0 0 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .tableCell {
