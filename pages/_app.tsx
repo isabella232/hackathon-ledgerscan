@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
+import Head from 'next/head';
 
 const Root = styled.div`
   background-color: ${(p) => p.theme.colors.neutral.c00};
@@ -42,7 +43,65 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StyleProvider selectedPalette="dark">
       <RootStyle>
-        <Component {...pageProps} />
+        <>
+          <Head>
+            <link
+              rel="preload"
+              href="/assets/fonts/HMAlphaMono-Medium.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-Bold.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-ExtraBold.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-ExtraLight-BETA.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-Light-BETA.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-Medium.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-Regular.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-Bold.woff2"
+              as="font"
+              crossOrigin=""
+            />
+            <link
+              rel="preload"
+              href="/assets/fonts/Inter-SemiBold.woff2"
+              as="font"
+              crossOrigin=""
+            />
+          </Head>
+          <Component {...pageProps} />
+        </>
       </RootStyle>
     </StyleProvider>
   )

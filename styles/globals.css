@@ -6,6 +6,23 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+
+@font-face {
+  font-family: "Alpha";
+  src: url("https://unpkg.com/@ledgerhq/react-ui/assets/fonts/HMAlphaMono-Medium.woff2")
+    format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://unpkg.com/@ledgerhq/react-ui/assets/fonts/Inter-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
 a {
   color: inherit;
   text-decoration: none;

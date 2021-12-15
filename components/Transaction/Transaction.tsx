@@ -46,8 +46,6 @@ return (
 export const Transaction = (tx: any): React.ReactElement => {
   const props = tx as trans.TX; //nasty
   return (
-
-    <StyleProvider fontsPath="assets" selectedPalette={"dark"}>
     <div>
       <div className={styles.txHeader}>
         <div>TRANSACTION DETAILS</div>
@@ -77,7 +75,6 @@ export const Transaction = (tx: any): React.ReactElement => {
         </Table>
       </TableContainer>
     </div>
-    </StyleProvider>
   );
 };
 
