@@ -1,7 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import {Transaction} from '../../../components/Transaction/Transaction'
-import * as trans from '../../../components/Transaction/model'
 import { Flex, InfiniteLoader } from "@ledgerhq/react-ui"
 export const EXPLORER_STAGING_URL: string = 
   "https://explorers.api-01.vault.ledger-stg.com/blockchain/v3"

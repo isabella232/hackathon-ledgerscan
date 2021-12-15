@@ -1,10 +1,12 @@
-import styled from "@ledgerhq/react-ui/components/styled";
+import styled from "styled-components";
+import styles from '../../../styles/Home.module.css'
 import { useRouter } from "next/router"
 import { FaBitcoin } from 'react-icons/fa';
 import { BiCopy } from 'react-icons/bi';
-import { Alert, Button, Icon, Table} from "@ledgerhq/react-ui";
+import { Alert, Button, Flex, Icon, Table, Text} from "@ledgerhq/react-ui";
 import { useState, useEffect } from "react"
 import {BtcTx} from "../../../components/BtcTx/BtcTx"
+import Image from "next/image";
 
 const ColumnStyle = styled.div`
   display: flex;
@@ -52,36 +54,91 @@ async function fetchAccount(coin:string, address:string): Promise<AccountView> {
     return { address, txs, utxos, balance }
 }
 
-function MyButton(text: string) {
-    return (
-        <Button variant="main" outline={false}>{text}</Button>
-    )
-}
+const MyButton = styled(Button)`
+  margin-inline: 10px;
+  margin-inline-end: 0px;
+`
 
+const AccountInfo = styled.div`
+  background-color: ${(p) => p.theme.colors.neutral.c20};
+  padding: 24px;
+  border-radius: 8px;
+`
+
+const BlockIcon = styled.div`
+  height: 47px;
+  width: 47px;
+  background-color: ${(p) => p.theme.colors.neutral.c30};
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+`
+
+const AccountValue = styled(Flex)`
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  margin-right: 60px;
+`
 
 function Wrapper(account: AccountView) {
-    const alert = account.txs.length > 1 ? (
-    <RowStyle>
-        <Alert type="warning" showIcon title="This address has been used for more than one 1 transaction. This negatively impacts your privacy Learn why"/>
-    </RowStyle>)
-    : <RowStyle/>
-    return (
-        <ColumnStyle>
-            <RowStyle><FaBitcoin/><h2>MY BITCOIN ACCOUNT 1</h2>
-              <Button variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</Button>
-              <Button variant="color" size={"small"} disabled={false} outline={false}>{"Swap"}</Button>
-            </RowStyle>
-            <RowStyle><Icon name="QrCode"/><ColumnStyle><a>Address</a><a>{account.address} <BiCopy/></a></ColumnStyle></RowStyle>
-            <Divider/>
-            <RowStyle>
-                <ColumnStyle><a>Balance</a><a>{account.balance} BTC</a></ColumnStyle>
-                <ColumnStyle><a>Quantity</a><a>{account.txs.length} transactions</a></ColumnStyle>
-                <ColumnStyle><a>Chain type</a><a>Taproot</a></ColumnStyle>
-            </RowStyle>
-            {alert}
-            <RowStyle><h2>LATEST TRANSACTIONS</h2></RowStyle>           
-        </ColumnStyle>
-    )
+  return (
+    <Flex flexDirection={"column"} style={{marginTop: "60px", marginBottom: "40px"}}>
+      <div className={styles.txHeader}>
+        <Flex>
+          <Image 
+            src="/assets/icons/bitcoin.png" 
+            alt=""
+            width="40px"
+            height="40px"
+          />
+          <Text style={{marginLeft: '10px'}} variant='h3' lineHeight="40px">TRANSACTION DETAILS</Text>
+        </Flex>
+        <Flex>  
+          <MyButton variant="color" size={"small"} disabled={false} outline={false}>Buy</MyButton>
+          <MyButton variant="color" size={"small"} disabled={false} outline={false}>Swap</MyButton>
+        </Flex>
+      </div>
+      <AccountInfo>
+        <RowStyle>
+          <BlockIcon>
+            <Icon name="QrCode"/>
+          </BlockIcon>
+          <ColumnStyle>
+            <Text variant="paragraph">Address</Text>
+            <Text variant="large" color="hsla(0, 0%, 76%, 1)">{account.address}</Text> 
+          </ColumnStyle>
+          <BiCopy/>
+        </RowStyle>
+        <Divider color="hsla(0, 1%, 23%, 1)"/>
+        <RowStyle style={{
+          marginBottom: "24px"
+        }}>
+          <AccountValue>
+            <Text variant="small" color="hsla(0, 0%, 76%, 1)">Balance</Text>
+            <Text variant="paragraph">{account.balance} BTC</Text>
+          </AccountValue>
+          <AccountValue>
+            <Text variant="small" color="hsla(0, 0%, 76%, 1)">Quantity</Text>
+            <Text variant="paragraph">{account.txs.length} transactions</Text>
+          </AccountValue>
+          <AccountValue>
+            <Text variant="small" color="hsla(0, 0%, 76%, 1)">Chain type</Text>
+            <Text variant="paragraph">Taproot</Text>
+          </AccountValue>
+        </RowStyle>
+        {account.txs.length > 1 && 
+          <Alert 
+            type="warning" 
+            showIcon 
+            title="This address has been used for more than one 1 transaction. This negatively impacts your privacy Learn why"
+          />
+        }
+      </AccountInfo>
+    </Flex>
+  )
 }
 
 export default function Account() {
@@ -90,32 +147,31 @@ export default function Account() {
     const { coin, address } = router.query
 
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await fetchAccount(coin as string, address as string)
-            console.log(result)
-            setAccount(result)
-          }
-        if (router.isReady) {
-            fetchData()
-        }
+      const fetchData = async () => {
+        const result = await fetchAccount(coin as string, address as string)
+        console.log(result)
+        setAccount(result)
+      }
+      if (router.isReady) {
+        fetchData()
+      }
     }, [coin, address, router.isReady])
-    
+
     console.log('props', coin, address)
-    return (
-        <div> { account ? 
+    if(!account){
+      return null
+    }
+    return <Flex 
+        flex={1} 
+        width={"100%"} 
+        flexDirection='column' 
+        justifyContent={'space-between'}
+      > 
         <div>
-          <div> Address {account?.address}</div>
-          <div> Transactions {account?.txs.length}</div>
-          {/* <div> Utxos {JSON.stringify(account?.utxos)}</div> */}
           <Wrapper {...account} ></Wrapper>
+          <Text variant="h4">LATEST TRANSACTIONS</Text>           
           {account?.txs.length > 0 && <BtcTx {...account.txs[0]} />}
           {account?.txs.length > 1 && <BtcTx {...account.txs[1]} />}
-          <div> Balance {account?.balance}</div>
         </div>
-
-        : 
-        <div></div> 
-        }
-        </div>
-    )
+    </Flex>
 }
