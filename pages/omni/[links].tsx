@@ -33,7 +33,7 @@ export default function Omni(){
           <Text variant="h3" >Found results on {linkList.length} chains : </Text>
         </Box>
         <Box>
-        { linkList.map( link =>
+        { linkList.map( (link, _) =>
           <Box>
           <Flex backgroundColor="neutral.c30" flexDirection="row" justifyContent="space-between" alignItems="center" py="5px" mx="5px" borderRadius="8px" >
             <Flex flexDirection="row" alignItems="center">
