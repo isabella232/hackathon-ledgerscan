@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import type { SearchLink } from "../../modules/explorer"
-import { Text, Box } from '@ledgerhq/react-ui'
-import { nameOf } from '../../modules/coins'
+import { Text, Box, Table } from '@ledgerhq/react-ui'
+import { nameOf, iconOf } from '../../modules/coins'
 
 export default function Omni(){
     const router = useRouter()
@@ -32,15 +32,41 @@ export default function Omni(){
         <Box py="15px">
           <Text variant="h3" >Found results on {linkList.length} chains : </Text>
         </Box>
-        <ul>
-          {linkList.map( (link, key) => 
-            <li key={key}>
-                <Text variant="h4">{nameOf[link.coin]} </Text>
-                <Text variant="h4" onClick={_ => pushLink(link)}>
-                    {link.param}
+        <Table
+          backgroundColor="neutral.c20"
+          borderRadius={8}
+          columns={[
+            {
+              header: () => <Text/>,
+              layout: 'auto',
+              render: props => 
+                <img src={iconOf[props.elt.coin]} width="40px" height="40px"/>
+            },
+            {
+              header: () => <Text/>,
+              layout: 'auto',
+              render: props => 
+                <Text variant="h4">{nameOf[props.elt.coin]}</Text>
+            },
+            {
+              header: () => <Text/>,
+              layout: 'auto',
+              render: props =>
+                <Text variant="h4" onClick={_ => pushLink(props.elt)}>
+                    {props.elt.param}
                 </Text>
-            </li>)}
-        </ul>
+            },
+            {
+              header: () => <Text/>,
+              layout: 'min-content',
+              render: props => <Text>POUET</Text>
+            }
+          ]}
+          data={linkList}
+          gridColumnGap={6}
+          gridRowGap={8}
+          p={8}
+        />
       </div>
     )
 }
