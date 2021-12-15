@@ -145,7 +145,6 @@ const Home: NextPage = () => {
 
   const [coin, setCoin] = useState("all")
   const [input, setInput] = useState("")
-  const [links, setLinks] = useState(new Array<SearchLink>())
 
   const pushLink = (link:SearchLink) => {
     console.log(link)
@@ -156,10 +155,17 @@ const Home: NextPage = () => {
     }
   }
 
+  const pushMulipleLink = (links: SearchLink[]) => {
+    console.log('push mulitple links', links)
+    router.push({
+      pathname: "/omni/[links]",
+      query: { links: JSON.stringify(links) }
+    })
+  }
+
   const reset = () => {
     setCoin("")
     setInput("")
-    setLinks([])
   }
 
   const onSubmit = async (evt:any) => {
@@ -167,13 +173,13 @@ const Home: NextPage = () => {
     reset()
     let links = await peekCoins(searchInput({coin, input}))
     links.forEach(console.log)
-    if(links.length == 0) {
+    if(links.length === 0) {
       return
     }
-    if(links.length == 1) {
+    if(links.length === 1) {
       return pushLink(links[0])
     }
-    return setLinks(links)
+    return pushMulipleLink(links)
   }
 
   return (
@@ -221,12 +227,6 @@ const Home: NextPage = () => {
         ]}
       />
       </div>
-
-      {/* <div>
-        <ul>
-          {links.map(link => <li><a onClick={_ => pushLink(link)}>{JSON.stringify(link)}</a></li>)}
-        </ul>
-      </div> */}
     </Flex>
   )
 }
