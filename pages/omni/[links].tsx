@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import type { SearchLink } from "../../modules/explorer"
-import { Text, Box, Table } from '@ledgerhq/react-ui'
+import { Text, Box, Flex, Link } from '@ledgerhq/react-ui'
 import { nameOf, iconOf } from '../../modules/coins'
 
 export default function Omni(){
@@ -32,41 +32,26 @@ export default function Omni(){
         <Box py="15px">
           <Text variant="h3" >Found results on {linkList.length} chains : </Text>
         </Box>
-        <Table
-          backgroundColor="neutral.c20"
-          borderRadius={8}
-          columns={[
-            {
-              header: () => <Text/>,
-              layout: 'auto',
-              render: props => 
-                <img src={iconOf[props.elt.coin]} width="40px" height="40px"/>
-            },
-            {
-              header: () => <Text/>,
-              layout: 'auto',
-              render: props => 
-                <Text variant="h4">{nameOf[props.elt.coin]}</Text>
-            },
-            {
-              header: () => <Text/>,
-              layout: 'auto',
-              render: props =>
-                <Text variant="h4" onClick={_ => pushLink(props.elt)}>
-                    {props.elt.param}
-                </Text>
-            },
-            {
-              header: () => <Text/>,
-              layout: 'min-content',
-              render: props => <Text>POUET</Text>
-            }
-          ]}
-          data={linkList}
-          gridColumnGap={6}
-          gridRowGap={8}
-          p={8}
-        />
+        <Box>
+        { linkList.map( link =>
+          <Box>
+          <Flex backgroundColor="neutral.c30" flexDirection="row" justifyContent="space-between" alignItems="center" py="5px" mx="5px" borderRadius="8px" >
+            <Flex flexDirection="row" alignItems="center">
+              <Box mx="10px">
+                <img src={iconOf[link.coin]} width="40px" height="40px"/>
+              </Box>
+              <Text variant="h4" mx="10px">{nameOf[link.coin]}</Text>
+            </Flex>
+            <Flex flexDirection="row" alignItems="center" mx="20px">
+              <Link onClick={_ => pushLink(link)}>
+                <Text variant="h4">{link.param}</Text>
+              </Link>
+            </Flex>
+          </Flex>
+          <Box py="5px"/>
+          </Box>
+        ) }
+        </Box>
       </div>
     )
 }
