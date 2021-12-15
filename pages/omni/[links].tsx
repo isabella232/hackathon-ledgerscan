@@ -1,10 +1,17 @@
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import { SearchLink } from ".."
 
-export default function TX(){
+export default function Omni(){
     const router = useRouter()
-    const links = router.query.links as string
-    const linkList: SearchLink[] = JSON.parse(links)
+    const [linkList, setLinkList] = useState<SearchLink[]>([])
+
+    useEffect(() => {
+      if(router.isReady) {
+        setLinkList(JSON.parse(router.query.links as string))
+      }
+    }, [router.isReady]
+    )
 
     const pushLink = (link: SearchLink) => {
         console.log(link)
