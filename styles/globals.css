@@ -40,6 +40,15 @@ a {
   width: 60% !important;
 }
 
+/* .react-select__menu::-webkit-scrollbar {
+  display: none;
+}
+.react-select__menu {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  color: red;
+} */
+
 .split-search-container > div > div > div:nth-child(3) > div > input  {
   text-align: left !important;
 }
