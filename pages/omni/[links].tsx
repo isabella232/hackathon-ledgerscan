@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import type { SearchLink } from "../../modules/explorer"
 import { Text, Box, Flex, Link } from '@ledgerhq/react-ui'
 import { nameOf, iconOf } from '../../modules/coins'
+import Image from "next/image"
 
 export default function Omni(){
     const router = useRouter()
@@ -33,12 +34,12 @@ export default function Omni(){
           <Text variant="h3" >Found results on {linkList.length} chains : </Text>
         </Box>
         <Box>
-        { linkList.map( (link, _) =>
-          <Box>
+        { linkList.map( (link, i) =>
+          <Box key={i}>
           <Flex backgroundColor="neutral.c30" flexDirection="row" justifyContent="space-between" alignItems="center" py="5px" mx="5px" borderRadius="8px" >
             <Flex flexDirection="row" alignItems="center">
               <Box mx="10px">
-                <img src={iconOf[link.coin]} width="40px" height="40px"/>
+                <Image src={iconOf[link.coin]} alt="" width="40px" height="40px"/>
               </Box>
               <Text variant="h4" mx="10px">{nameOf[link.coin]}</Text>
             </Flex>

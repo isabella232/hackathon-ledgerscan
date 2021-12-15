@@ -37,7 +37,7 @@ export default function TX(){
             fetchData()
           }
         }
-    }, [coin, hash, router.isReady])
+    }, [coin, hash, router])
     
     console.log('props', coin, hash);
     return <Flex flex={1} justifyContent={"center"} alignItems={"center"}>
