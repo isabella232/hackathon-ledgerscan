@@ -20,6 +20,8 @@ export const EthLikeCoins =
 
 export const AllCoins = [...BtcLikeCoins, ...EthLikeCoins]
 
+export const SelectCoins = ["all", ...AllCoins]
+
 export type SearchInput = {
   input: string, 
   coin?: string
@@ -39,7 +41,7 @@ export type SearchLink = {
 }
 
 function coinOrDefault(search:SearchInput, defaults:string[]):string[] {
-  if (search.coin && search.coin.length > 0) {
+  if (search.coin && search.coin.length > 0 && search.coin !== "all") {
     return [search.coin]
   } else {
     return [...defaults]
@@ -141,7 +143,7 @@ const Home: NextPage = () => {
 
   const router = useRouter()
 
-  const [coin, setCoin] = useState("")
+  const [coin, setCoin] = useState("all")
   const [input, setInput] = useState("")
   const [links, setLinks] = useState(new Array<SearchLink>())
 
@@ -179,8 +181,8 @@ const Home: NextPage = () => {
       <Logo />
       <div>
         <form onSubmit={onSubmit}>
-          <select onChange={e => setCoin(e.target.value)}>
-            { AllCoins.map((e, k) => <option key={k} value={e}>{e}</option>)}
+          <select value={coin} onChange={e => setCoin(e.target.value)}>
+            { SelectCoins.map((e, k) => <option key={k} value={e}>{e}</option>)}
           </select>
           <label><input type="text" name={input} onChange={e => setInput(e.target.value)}/></label>
           <input type="submit" value="Scan!"/>

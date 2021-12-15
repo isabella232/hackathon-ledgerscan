@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SplitSearch from '../SplitSearch/SplitSearch'
 
 const LedgerLog = styled(Log).attrs(() => ({
-  width: "150px"
+  width: "180px"
 }))`
 `
 const ScanPart = styled(Text)`
