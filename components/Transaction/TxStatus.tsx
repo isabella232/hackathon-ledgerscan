@@ -1,6 +1,4 @@
-import {Header as LedgerHeader} from '@ledgerhq/react-ui';
 import React from "react";
-import SplitSearch from '../SplitSearch/SplitSearch'
 import styles from '../../styles/Home.module.css'
 
 

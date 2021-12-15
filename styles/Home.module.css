@@ -47,6 +47,20 @@
   border-bottom-color: gray;
 }
 
+.lastCell {
+  background-color: black;
+  color: rgba(255, 255, 255, 1) !important;
+  border-bottom-width: 1px;
+  border-bottom-color: gray;
+  width: 30px;
+
+}
+
+.flexLeft {
+  display: flex;
+  align-items: flex-start;
+}
+
 .footerItem {
   padding-left: 40px;
   padding-right: 50px;

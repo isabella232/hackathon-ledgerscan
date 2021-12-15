@@ -6,20 +6,24 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button} from '@ledgerhq/react-ui'
+import {Button, StyleProvider} from '@ledgerhq/react-ui'
 import * as trans from './model'
 import TxStatus from './TxStatus';
+import {CopyButton} from './CopyButton'
+import "@ledgerhq/react-ui/assets/fonts";
+// import {StyleProvider} from '"@ledgerhq/react-ui"'
 
 type Row = {
     name: string
     value: string
+    copy?: boolean
 }
 
 const rows = (tx: trans.TX): Row[] => [
     {name: 'Timestamp', value: tx.received_at },
     {name: 'Value', value: tx.value.toString() },
-    {name: 'From', value: tx.from },
-    {name: 'To', value: tx.to },
+    {name: 'From', value: tx.from, copy: true },
+    {name: 'To', value: tx.to, copy: true },
     {name: 'Transaction Fee', value: tx.gas_used.toString() },
     {name: 'Ethereum Price', value: "not sure" },
     {name: 'Gas Limit', value: tx.max_fee_per_gas.toString() },
@@ -32,7 +36,7 @@ return (
   <div className={styles.confirmation}>
     <div>
       <p>{transactions}/{total} CONFIRMATIONS</p> 
-      <p>{address}</p>
+      <div className={styles.flexLeft}><p>{address}</p> <CopyButton text={address}/></div>
     </div>
     <TxStatus confirmed={transactions == total} />
   </div>
@@ -42,6 +46,8 @@ return (
 export const Transaction = (tx: any): React.ReactElement => {
   const props = tx as trans.TX; //nasty
   return (
+
+    <StyleProvider fontsPath="assets" selectedPalette={"dark"}>
     <div>
       <div className={styles.txHeader}>
         <div>TRANSACTION DETAILS</div>
@@ -64,12 +70,14 @@ export const Transaction = (tx: any): React.ReactElement => {
                   {row.name}
                 </TableCell>
                 <TableCell className={styles.tableCell} align="right">{row.value}</TableCell>
+                <TableCell className={styles.lastCell} align="right">{!!row.copy ? <CopyButton text={row.value}/> : null}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </div>
+    </StyleProvider>
   );
 };
 
