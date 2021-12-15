@@ -13,7 +13,7 @@ const ScanPart = styled(Text)`
   padding-left: 15px;
 ` 
 
-export const Logo = ({header}: {header: boolean}): JSX.Element  => {
+export const Logo = ({header}: {header?: boolean}): JSX.Element  => {
   const router = useRouter()
 
   return <Flex flexDirection={"row"}
