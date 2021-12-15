@@ -6,11 +6,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button} from '@ledgerhq/react-ui'
+import {Button, Flex, Text} from '@ledgerhq/react-ui'
 import * as trans from './model'
 import TxStatus from './TxStatus';
 import {CopyButton} from './CopyButton'
 import "@ledgerhq/react-ui/assets/fonts";
+import styled from 'styled-components'
+
+const MyButton = styled(Button)`
+  margin-inline: 10px;
+  margin-inline-end: 0px;
+`
 
 type Row = {
     name: string
@@ -58,16 +64,18 @@ function toEth(value: number): string {
   return !!value ? "ETH " + (value / 1000000000000000000) : "N/A"
 }
 
-const confirmation = (confirmations: number, address: string, status?: boolean) => {
-return (
-  <div className={styles.confirmation}>
-    <div>
-      <p>{confirmations} CONFIRMATIONS</p> 
-      <div className={styles.txHash}><p>{address}</p> <CopyButton text={address}/></div>
+const Confirmation = (confirmations: number, address: string, status?: boolean) => {
+  return (
+    <div className={styles.confirmation}>
+      <div>
+        <Text>{confirmations} CONFIRMATIONS</Text> 
+        <div className={styles.txHash}>
+          <Text>{address}</Text> 
+          <CopyButton text={address}/>
+        </div>
+      </div>
+      <TxStatus confirmed={!!status} ok="SUCCESS" ko="PENDING" />
     </div>
-    <TxStatus confirmed={!!status} ok="SUCCESS" ko="PENDING" />
-    {/* {!!status && <TxStatus confirmed={status} ok="SUCCESS" ko="PENDING" />} */}
-  </div>
 )
 }
 
@@ -77,13 +85,13 @@ export const Transaction = (tx: any): React.ReactElement => {
     <div className={styles.transaction}>
       <div className={styles.txHeader}>
         <div>TRANSACTION DETAILS</div>
-        <div>  
-          <Button variant="color" size={"small"} disabled={true} outline={false}>{"Stake"}</Button>
-          <Button variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</Button>
-          <Button variant="color" size={"small"} disabled={false} outline={false}>{"Swap"}</Button>
-        </div>
+        <Flex>  
+          <MyButton variant="color" size={"small"} disabled={true} outline={false}>{"Stake"}</MyButton>
+          <MyButton variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</MyButton>
+          <MyButton variant="color" size={"small"} disabled={false} outline={false}>{"Swap"}</MyButton>
+        </Flex>
       </div>
-      {confirmation(props.confirmations, props.hash, props.status == 1)}
+      {Confirmation(props.confirmations, props.hash, props.status == 1)}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableBody>
@@ -93,10 +101,12 @@ export const Transaction = (tx: any): React.ReactElement => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell className={styles.tableCell} component="th" scope="row">
-                  {row.name}
+                  <Text>{row.name}</Text>
                 </TableCell>
-                <TableCell className={styles.tableCell} align="right">{row.value}</TableCell>
-                <TableCell className={styles.lastCell} align="right">{!!row.copy ? <CopyButton text={row.value}/> : null}</TableCell>
+                <TableCell className={styles.tableCell} align="right">
+                  <Text style={{ marginRight: !!row.copy ? '10px' : '0px'}}>{row.value}</Text>
+                  {!!row.copy && <CopyButton text={row.value}/>}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
