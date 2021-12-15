@@ -1,4 +1,4 @@
-import { Link, Flex } from '@ledgerhq/react-ui'
+import { Link, Flex, Text } from '@ledgerhq/react-ui'
 import styled from 'styled-components';
 
 const FooterZone = styled(Flex)`
@@ -16,10 +16,10 @@ const FooterLink = styled(Link)`
 const Footer = () => (
   <FooterZone>
     <FooterLink href="http://www.google.com">
-      Explorer as a Service
+      <Text variant='paragraph'>Explorer as a Service</Text>
     </FooterLink>
     <FooterLink href="https://www.ledger.com">
-      Ledger.com
+      <Text variant='paragraph'>Ledger.com</Text>
     </FooterLink>
   </FooterZone>
 );

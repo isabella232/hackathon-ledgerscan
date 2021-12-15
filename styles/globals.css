@@ -52,3 +52,7 @@ a {
 .split-search-container > div > div > div:nth-child(3) > div > input  {
   text-align: left !important;
 }
+
+.split-search-container > div {
+  width: 100%;
+}

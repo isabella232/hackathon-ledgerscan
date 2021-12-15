@@ -84,7 +84,7 @@ export const Transaction = (tx: any): React.ReactElement => {
   return (
     <div className={styles.transaction}>
       <div className={styles.txHeader}>
-        <div>TRANSACTION DETAILS</div>
+        <Text variant='h3'>TRANSACTION DETAILS</Text>
         <Flex>  
           <MyButton variant="color" size={"small"} disabled={true} outline={false}>{"Stake"}</MyButton>
           <MyButton variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</MyButton>
@@ -92,8 +92,8 @@ export const Transaction = (tx: any): React.ReactElement => {
         </Flex>
       </div>
       {Confirmation(props.confirmations, props.hash, props.status == 1)}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer>
+        <Table sx={{ marginTop: "40px", minWidth: 650 }} aria-label="simple table">
           <TableBody>
             {rows(props).map((row) => (
               <TableRow

@@ -33,9 +33,10 @@ export default function TX(){
     }, [coin, hash, router.isReady])
     
     console.log('props', coin, hash);
-    return !!tx 
-      ? <Transaction {...tx}/> 
-      : <Flex flex={1} justifyContent={"center"} alignItems={"center"}>
-        <InfiniteLoader color="white" />
-      </Flex>
+    return <Flex flex={1} justifyContent={"center"} alignItems={"center"}>
+      {!!tx 
+        ? <Transaction {...tx}/> 
+        : <InfiniteLoader color="white" />
+      }
+    </Flex>
 }

@@ -76,9 +76,9 @@ export const SplitSearch = (): JSX.Element => {
   return (
     <FlexBox 
       className="split-search-container" 
-      flexDirection="row" 
-      rowGap={3} 
-      maxWidth="600px" 
+      flexDirection="row"
+      justifyContent={"center"}
+      width={"50%"}
       onKeyPress={onSubmit}
     >
       <SplitInput

@@ -21,7 +21,7 @@ export const Logo = ({header}: {header?: boolean}): JSX.Element  => {
     onClick={() => header && router.push('/')}
   >
     <LedgerLog>LEDGER</LedgerLog>
-    <ScanPart>SCAN</ScanPart>
+    <ScanPart variant='h4'>SCAN</ScanPart>
   </Flex>
 }
 

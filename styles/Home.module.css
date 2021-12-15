@@ -1,5 +1,10 @@
 .table {
   background-color: #000000;
+  margin-top: 30px;
+}
+
+.transaction {
+  width: 100%;
 }
 
 .txHeader {
@@ -11,6 +16,7 @@
   padding: 1rem 1em;
   align-items: center;
   font-family: Inter;
+  margin-top: 90px;
 }
 
 .txStatusConfirmed {
@@ -49,6 +55,7 @@
   flex: 0 0 100%;
   justify-content: space-between;
   font-family: Inter;
+  margin-top: 40px;
 }
 
 .copyButton {
