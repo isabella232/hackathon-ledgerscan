@@ -15,7 +15,7 @@ const FooterLink = styled(Link)`
 
 const Footer = () => (
   <FooterZone>
-    <FooterLink href="http://www.google.com">
+    <FooterLink href="/marketing">
       <Text variant='paragraph'>Explorer as a Service</Text>
     </FooterLink>
     <FooterLink href="https://www.ledger.com">
