@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import {Transaction} from '../../../components/Transaction/Transaction'
 import * as trans from '../../../components/Transaction/model'
+import { Flex, InfiniteLoader } from "@ledgerhq/react-ui"
 export const EXPLORER_STAGING_URL: string = 
   "https://explorers.api-01.vault.ledger-stg.com/blockchain/v3"
 
@@ -32,5 +33,9 @@ export default function TX(){
     }, [coin, hash, router.isReady])
     
     console.log('props', coin, hash);
-    return !!tx ? <Transaction {...tx}/> : null
+    return !!tx 
+      ? <Transaction {...tx}/> 
+      : <Flex flex={1} justifyContent={"center"} alignItems={"center"}>
+        <InfiniteLoader color="white" />
+      </Flex>
 }
