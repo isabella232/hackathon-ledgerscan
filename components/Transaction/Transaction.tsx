@@ -24,11 +24,11 @@ const rows = (tx: trans.TX): Row[] => [
     {name: 'Value', value: tx.value.toString() },
     {name: 'From', value: tx.from, copy: true },
     {name: 'To', value: tx.to, copy: true },
-    {name: 'Transaction Fee', value: tx.gas_used.toString() },
-    {name: 'Ethereum Price', value: "not sure" },
+    {name: 'Transaction Fee', value: tx.cumulative_gas_used.toString() },
+    {name: 'Ethereum Price', value: "$3,878.46" },
     {name: 'Gas Limit', value: tx.max_fee_per_gas.toString() },
-    {name: 'Gas Fees', value: tx.cumulative_gas_used.toString() },
-    {name: 'Gas Price', value: "not sure" },
+    {name: 'Gas Fees', value: tx.gas_used.toString()},
+    {name: 'Gas Price', value: tx.gas_price.toString() },
 ]
 
 const confirmation = (transactions: number, total: number, address: string) => {
