@@ -58,91 +58,24 @@ function MyButton({text}) {
 }
 
 
-function Wrapper() {
+function Wrapper(account: AccountView) {
+    const alert = account.txs.length > 1 ? (
+    <RowStyle>
+        <Alert type="warning" showIcon title="This address has been used for more than one 1 transaction. This negatively impacts your privacy Learn why"/>
+    </RowStyle>)
+    : <RowStyle/>
     return (
         <ColumnStyle>
             <RowStyle><FaBitcoin/><h2>MY BITCOIN ACCOUNT 1</h2><MyButton text="Buy"></MyButton><MyButton text="Swap"></MyButton></RowStyle>
-            <RowStyle><Icon name="QrCode"/><ColumnStyle><a>Address</a><a>bc1q34aq5drpuwy3wgl9lhup9892qp6svr8ldzyy7c <BiCopy/></a></ColumnStyle></RowStyle>
+            <RowStyle><Icon name="QrCode"/><ColumnStyle><a>Address</a><a>{account.address} <BiCopy/></a></ColumnStyle></RowStyle>
             <Divider/>
             <RowStyle>
-                <ColumnStyle><a>Balance</a><a>240.21BTC</a></ColumnStyle>
-                <ColumnStyle><a>Quantity</a><a>56 transactions</a></ColumnStyle>
+                <ColumnStyle><a>Balance</a><a>{account.balance} BTC</a></ColumnStyle>
+                <ColumnStyle><a>Quantity</a><a>{account.txs.length} transactions</a></ColumnStyle>
                 <ColumnStyle><a>Chain type</a><a>Taproot</a></ColumnStyle>
             </RowStyle>
-            <RowStyle>
-                <Alert type="warning" showIcon title="This address has been used for more than one 1 transaction. This negatively impacts your privacy Learn why"/>
-            </RowStyle>
-            <RowStyle><h2>LATEST TRANSACTIONS</h2></RowStyle>
-            <>
-  <Table
-    backgroundColor="neutral.c20"
-    borderRadius={8}
-    columns={[
-      {
-        header: function noRefCheck(){},
-        layout: 'auto',
-        render: function noRefCheck(){}
-      },
-      {
-        header: function noRefCheck(){},
-        layout: 'auto',
-        render: function noRefCheck(){}
-      },
-      {
-        header: function noRefCheck(){},
-        layout: 'auto',
-        render: function noRefCheck(){}
-      },
-      {
-        header: function noRefCheck(){},
-        layout: 'auto',
-        render: function noRefCheck(){}
-      },
-      {
-        header: function noRefCheck(){},
-        layout: 'min-content',
-        render: function noRefCheck(){}
-      }
-    ]}
-    data={[
-      {
-        address: '0x32Be343B94f860124dC4fEe278FDCBD38C102D88',
-        amount: 128.26484,
-        counterValue: 53.29,
-        currency: 'Ethereum Classic',
-        evolution: 0.1,
-        starred: false
-      },
-      {
-        address: '0xa910f92acdaf488fa6ef02174fb86208ad7722ba',
-        amount: 1.23,
-        counterValue: 3029.29,
-        currency: 'Ethereum',
-        evolution: 3,
-        starred: true
-      },
-      {
-        address: '1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX',
-        amount: 0.003,
-        counterValue: 1920.23,
-        currency: 'Bitcoin',
-        evolution: -2.1,
-        starred: true
-      },
-      {
-        address: '0x380389E04f7671AB849baF10bd89C75C3bf99cbB',
-        amount: 128,
-        counterValue: 128,
-        currency: 'Dai',
-        evolution: 0.2,
-        starred: false
-      }
-    ]}
-    gridColumnGap={6}
-    gridRowGap={8}
-    p={8}
-  />
-</>              
+            {alert}
+            <RowStyle><h2>LATEST TRANSACTIONS</h2></RowStyle>           
         </ColumnStyle>
     )
 }
@@ -171,7 +104,9 @@ export default function Account() {
           <div> Transactions {account?.txs.length}</div>
           <div> Utxos {JSON.stringify(account?.utxos)}</div>
           <div> Balance {account?.balance}</div>
-        </div> 
+          <Wrapper {...account} ></Wrapper>
+        </div>
+
         : 
         <div></div> 
         }
