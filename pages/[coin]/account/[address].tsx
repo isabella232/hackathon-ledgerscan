@@ -1,7 +1,5 @@
 import styled from "@ledgerhq/react-ui/components/styled";
 import { useRouter } from "next/router"
-import { FaBitcoin } from 'react-icons/fa';
-import { BiCopy } from 'react-icons/bi';
 import { Alert, Button, Icon, Table} from "@ledgerhq/react-ui";
 import { useState, useEffect } from "react"
 import {BtcTx} from "../../../components/BtcTx/BtcTx"

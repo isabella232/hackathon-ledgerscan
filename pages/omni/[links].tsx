@@ -1,8 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import type { SearchLink } from "../../modules/explorer"
-import { Text, Box } from '@ledgerhq/react-ui'
-import { nameOf } from '../../modules/coins'
+import { Text, Box, Flex, Link } from '@ledgerhq/react-ui'
+import { nameOf, iconOf } from '../../modules/coins'
 
 export default function Omni(){
     const router = useRouter()
@@ -32,15 +32,26 @@ export default function Omni(){
         <Box py="15px">
           <Text variant="h3" >Found results on {linkList.length} chains : </Text>
         </Box>
-        <ul>
-          {linkList.map( (link, key) => 
-            <li key={key}>
-                <Text variant="h4">{nameOf[link.coin]} </Text>
-                <Text variant="h4" onClick={_ => pushLink(link)}>
-                    {link.param}
-                </Text>
-            </li>)}
-        </ul>
+        <Box>
+        { linkList.map( link =>
+          <Box>
+          <Flex backgroundColor="neutral.c30" flexDirection="row" justifyContent="space-between" alignItems="center" py="5px" mx="5px" borderRadius="8px" >
+            <Flex flexDirection="row" alignItems="center">
+              <Box mx="10px">
+                <img src={iconOf[link.coin]} width="40px" height="40px"/>
+              </Box>
+              <Text variant="h4" mx="10px">{nameOf[link.coin]}</Text>
+            </Flex>
+            <Flex flexDirection="row" alignItems="center" mx="20px">
+              <Link onClick={_ => pushLink(link)}>
+                <Text variant="h4">{link.param}</Text>
+              </Link>
+            </Flex>
+          </Flex>
+          <Box py="5px"/>
+          </Box>
+        ) }
+        </Box>
       </div>
     )
 }
