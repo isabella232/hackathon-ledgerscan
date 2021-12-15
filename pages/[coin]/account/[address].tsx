@@ -1,6 +1,14 @@
+import styled from "@ledgerhq/react-ui/components/styled";
 import { useRouter } from "next/router"
+import { FaBitcoin } from 'react-icons/fa';
+import { BiCopy } from 'react-icons/bi';
+import { Alert, Button, Icon, Table} from "@ledgerhq/react-ui";
 import { useState, useEffect } from "react"
 
+const ColumnStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 type AccountView = {
     address: string,
     txs: any[],
@@ -20,6 +28,18 @@ async function explorerGET(path:string) {
 async function fetchAccountTxs(coin:string, address:string): Promise<any> {
   return await explorerGET(`/${coin}/addresses/${address}/transactions?batch_size=15&filtering=true&noinput=true`).then(x => x.json())
 }
+const RowStyle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 6px;
+`;
+
+const Divider = styled.hr`
+    border-top: 2px solid #bbb;
+    margin-top: 15px;
+    margin-bottom: 15px;
+`;
 
 async function fetchAccountUTXOs(coin:string, address:string): Promise<any> {
   return await explorerGET(`/${coin}/addresses/${address}/utxos`).then(x => x.json())
@@ -31,8 +51,103 @@ async function fetchAccount(coin:string, address:string): Promise<AccountView> {
     return { address, txs, utxos, balance }
 }
 
+function MyButton({text}) {
+    return (
+        <Button variant="main" outline={false}>{text}</Button>
+    )
+}
 
-export default function Account(){
+
+function Wrapper() {
+    return (
+        <ColumnStyle>
+            <RowStyle><FaBitcoin/><h2>MY BITCOIN ACCOUNT 1</h2><MyButton text="Buy"></MyButton><MyButton text="Swap"></MyButton></RowStyle>
+            <RowStyle><Icon name="QrCode"/><ColumnStyle><a>Address</a><a>bc1q34aq5drpuwy3wgl9lhup9892qp6svr8ldzyy7c <BiCopy/></a></ColumnStyle></RowStyle>
+            <Divider/>
+            <RowStyle>
+                <ColumnStyle><a>Balance</a><a>240.21BTC</a></ColumnStyle>
+                <ColumnStyle><a>Quantity</a><a>56 transactions</a></ColumnStyle>
+                <ColumnStyle><a>Chain type</a><a>Taproot</a></ColumnStyle>
+            </RowStyle>
+            <RowStyle>
+                <Alert type="warning" showIcon title="This address has been used for more than one 1 transaction. This negatively impacts your privacy Learn why"/>
+            </RowStyle>
+            <RowStyle><h2>LATEST TRANSACTIONS</h2></RowStyle>
+            <>
+  <Table
+    backgroundColor="neutral.c20"
+    borderRadius={8}
+    columns={[
+      {
+        header: function noRefCheck(){},
+        layout: 'auto',
+        render: function noRefCheck(){}
+      },
+      {
+        header: function noRefCheck(){},
+        layout: 'auto',
+        render: function noRefCheck(){}
+      },
+      {
+        header: function noRefCheck(){},
+        layout: 'auto',
+        render: function noRefCheck(){}
+      },
+      {
+        header: function noRefCheck(){},
+        layout: 'auto',
+        render: function noRefCheck(){}
+      },
+      {
+        header: function noRefCheck(){},
+        layout: 'min-content',
+        render: function noRefCheck(){}
+      }
+    ]}
+    data={[
+      {
+        address: '0x32Be343B94f860124dC4fEe278FDCBD38C102D88',
+        amount: 128.26484,
+        counterValue: 53.29,
+        currency: 'Ethereum Classic',
+        evolution: 0.1,
+        starred: false
+      },
+      {
+        address: '0xa910f92acdaf488fa6ef02174fb86208ad7722ba',
+        amount: 1.23,
+        counterValue: 3029.29,
+        currency: 'Ethereum',
+        evolution: 3,
+        starred: true
+      },
+      {
+        address: '1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX',
+        amount: 0.003,
+        counterValue: 1920.23,
+        currency: 'Bitcoin',
+        evolution: -2.1,
+        starred: true
+      },
+      {
+        address: '0x380389E04f7671AB849baF10bd89C75C3bf99cbB',
+        amount: 128,
+        counterValue: 128,
+        currency: 'Dai',
+        evolution: 0.2,
+        starred: false
+      }
+    ]}
+    gridColumnGap={6}
+    gridRowGap={8}
+    p={8}
+  />
+</>              
+        </ColumnStyle>
+    )
+}
+
+export default function Account() {
     const router = useRouter()
     const [account, setAccount] = useState<AccountView|undefined>(undefined)
     const { coin, address } = router.query
