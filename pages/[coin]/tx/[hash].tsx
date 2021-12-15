@@ -32,10 +32,8 @@ export default function TX(){
     }, [coin, hash, router.isReady])
     
     console.log('props', coin, hash);
-    console.log(tx as trans.TX)
     return (
       <div>
-          {/* {JSON.stringify(tx)} */}
           {!!tx && <Transaction {...tx}/>}
       </div>
     )
