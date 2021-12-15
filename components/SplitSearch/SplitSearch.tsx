@@ -1,19 +1,15 @@
 import { SelectInput, SearchInput, SplitInput } from '@ledgerhq/react-ui'
 import * as React from 'react'
-import {Props } from '@ledgerhq/react-ui/components/form/SplitInput'
+import { Props } from '@ledgerhq/react-ui/components/form/SplitInput'
 import {Props as SelectInputProps} from '@ledgerhq/react-ui/components/form/SelectInput'
 import FlexBox from "@ledgerhq/react-ui/components/layout/Flex";
 import { components, StylesConfig } from "react-select";
+import { selectCoins } from '../../modules/coins';
 
-
-const options = [
-  // Labels contain muttons spaces (U+2003 character).
-  // Do not replace with a regular space please!
-  { value: "btc", label: "🍓 Bitcoin" },
-  { value: "eth", label: "🍫 Ethereum" },
-  { value: "lemon", label: "🍋 Lemon" },
-  { value: "vanilla", label: "🍦 Vanilla" },
-];
+const options = selectCoins.map(c => ({
+  value: c, 
+  label: c
+}))
 
 const selectStyles: StylesConfig<Option> = {
   container: (provided, state) => ({
@@ -36,7 +32,7 @@ export const SplitSearch = (): JSX.Element => {
   const [leftValue1, setLeftValue1] = React.useState<Option | null>(options[0]);
   const [rightValue1, setRightValue1] = React.useState<string>("");
   return (
-    <FlexBox flexDirection="row" rowGap={3} maxWidth="600px">
+    <FlexBox className="split-search-container" flexDirection="row" rowGap={3} maxWidth="600px">
       <SplitInput
         renderLeft={(props: SelectInputProps<Option>) => (
           <SelectInput

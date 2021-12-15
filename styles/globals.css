@@ -31,3 +31,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.split-search-container > div > div > div:nth-child(1)  {
+  width: 38% !important;
+}
+
+.split-search-container > div > div > div:nth-child(3)  {
+  width: 62% !important;
+  text-align: left;
+}
