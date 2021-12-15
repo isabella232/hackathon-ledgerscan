@@ -118,7 +118,7 @@ function Wrapper(account: AccountView) {
         }}>
           <AccountValue>
             <Text variant="small" color="hsla(0, 0%, 76%, 1)">Balance</Text>
-            <Text variant="paragraph">{account.balance} BTC</Text>
+            <Text variant="paragraph">{Number(account.balance) / 100000000} BTC</Text>
           </AccountValue>
           <AccountValue>
             <Text variant="small" color="hsla(0, 0%, 76%, 1)">Quantity</Text>

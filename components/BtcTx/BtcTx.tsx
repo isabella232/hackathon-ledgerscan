@@ -51,12 +51,8 @@ function stringOrZero(x: number) {
   return !!x ? x.toString() : "0"
 }
 
-function received(tx: trans.BtcTransaction) { 
-  return !!tx.inputs ? tx.inputs.reduce((sum, current) => sum + current.value, 0) : 0;
-}
-
-function sent(tx: trans.BtcTransaction) { 
-  return !!tx.outputs ? tx.outputs.reduce((sum, current) => sum + current.value, 0) : 0;
+function received(tx: trans.BtcTransaction): number { 
+  return !!tx.inputs ? tx.inputs.reduce((sum, current) => sum + Number(current.value), 0) : 0;
 }
 
 const TableHeader = styled.div`
