@@ -12,7 +12,7 @@ export default function Omni(){
       if(router.isReady) {
         setLinkList(JSON.parse(router.query.links as string))
       }
-    }, [router.isReady]
+    }, [router.isReady, router.query.links]
     )
 
     const pushLink = (link: SearchLink) => {
