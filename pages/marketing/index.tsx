@@ -4,22 +4,23 @@ import styled from "styled-components";
 
 const Banner = styled.div`
     position: relative;
-    height: 300px;
+    width: 100%;
+    height: 350px;
 `
 const SupportedCoins = styled.div`
-position: relative;
+    position: relative;
     width: 100%;
-    height: 300px;
+    height: 350px;
 `
 const Features = styled.div`
-position: relative;
+    position: relative;
     width: 100%;
-    height: 300px;
+    height: 350px;
 `
 const BelowBanner = styled.div`
     width: 100%;
     position: relative;
-    height: 300px;
+    height: 350px;
 `
 
 export default function Marketing(){
