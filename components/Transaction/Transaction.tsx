@@ -6,12 +6,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button, StyleProvider} from '@ledgerhq/react-ui'
+import {Button} from '@ledgerhq/react-ui'
 import * as trans from './model'
 import TxStatus from './TxStatus';
 import {CopyButton} from './CopyButton'
 import "@ledgerhq/react-ui/assets/fonts";
-// import {StyleProvider} from '"@ledgerhq/react-ui"'
 
 type Row = {
     name: string
@@ -21,13 +20,32 @@ type Row = {
 
 const ETHPrice = 3878.46
 
+function ago(timestamp: string): string {
+  const ms = Date.now() - Date.parse(timestamp)  
+  const days: number = Math.floor(ms / (1000 * 60 * 60 * 24));
+  const hours: number = Math.floor(ms / (1000 * 60 * 60));
+  const minutes: number = Math.floor(ms / (1000 * 60));
+  const seconds: number = Math.ceil(ms / (1000));
+
+  let hl = ""
+  if (days == 0 && hours == 0 && minutes == 0 && seconds > 0) hl = "A few seconds ago"
+  else if (days == 0 && hours == 0 && minutes == 1) hl =`${minutes} minute ago`
+  else if (days == 0 && hours == 0) hl =`${minutes} minutes ago`
+  else if (days === 0 && hours == 1) hl = `${hours} hours ago`
+  else if (days == 1) `1 day ago`
+  else  hl = `${days} days ago`
+
+
+  return `(${hl}) ${timestamp}`
+}
+
 const rows = (tx: trans.TX): Row[] => [
-    {name: 'Timestamp', value: tx.received_at },
+    {name: 'Timestamp', value: ago(tx.received_at)},
     {name: 'Value', value: toEth(tx.value) },
     {name: 'From', value: tx.from, copy: true },
     {name: 'To', value: tx.to, copy: true },
     {name: 'Transaction Fee', value: toEth(tx.gas_used * tx.gas_price) },
-    {name: 'Ethereum Price', value: "$3,878.46" },
+    {name: 'Ethereum Price', value: "$3,878.47" },
     {name: 'Gas Limit', value: toGwei(tx.max_fee_per_gas)  },
     {name: 'Gas Fees', value: toGwei(tx.gas_used)},
     {name: 'Gas Price', value: toGwei(tx.gas_price) },
@@ -55,7 +73,7 @@ return (
 export const Transaction = (tx: any): React.ReactElement => {
   const props = tx as trans.TX; //nasty
   return (
-    <div>
+    <div className={styles.transaction}>
       <div className={styles.txHeader}>
         <div>TRANSACTION DETAILS</div>
         <div>  

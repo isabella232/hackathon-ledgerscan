@@ -17,7 +17,6 @@
   border-radius: 3px;
   border-width: 1px;
   padding: 2px;
-  padding: 4px;
   margin-right: 45px;
   border-style: solid;
   border-color: rgb(104, 247, 91);
@@ -28,12 +27,16 @@
 }
 
 .txStatusPending {
-  border-radius: 1px;
-  border-width: 3px;
-  padding: 2px;
+  border-radius: 3px;
+  border-width: 1px;
+  padding: 4px;
+  margin-right: 45px;
   border-style: solid;
-  border-color: gray;
-  color: gray;
+  border-color: rgb(172, 172, 172);
+  color: rgb(172, 172, 172);
+  align-self: center;
+  font-weight: normal;
+  font-size: 15px;
   align-self: center;
 }
 
@@ -64,7 +67,7 @@
   color: rgba(255, 255, 255, 1) !important;
   border-bottom-width: 1px;
   border-bottom-color: gray;
-  font-family: Inter !important;
+  font: 'Inter-Light-BETA';
 }
 
 .lastCell {
