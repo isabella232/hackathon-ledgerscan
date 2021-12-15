@@ -3,13 +3,13 @@ import * as React from 'react'
 import {Props as SelectInputProps} from '@ledgerhq/react-ui/components/form/SelectInput'
 import FlexBox from "@ledgerhq/react-ui/components/layout/Flex";
 import { components, StylesConfig } from "react-select";
-import { selectCoins } from '../../modules/coins';
+import { selectCoins, nameOf } from '../../modules/coins';
 import { useRouter } from 'next/router';
 import { peekCoins, searchInput, SearchLink } from '../../modules/explorer';
 
 const options = selectCoins.map(c => ({
   value: c, 
-  label: c
+  label: nameOf[c]
 }))
 
 const selectStyles: StylesConfig<Option> = {
@@ -86,7 +86,6 @@ export const SplitSearch = (): JSX.Element => {
           <SelectInput
             value={coin}
             options={options}
-            placeholder="Coin"
             unwrapped
             onChange={setCoin}
             components={{
