@@ -24,21 +24,21 @@ const rows = (tx: trans.TX): Row[] => [
     {name: 'Value', value: tx.value.toString() },
     {name: 'From', value: tx.from, copy: true },
     {name: 'To', value: tx.to, copy: true },
-    {name: 'Transaction Fee', value: tx.cumulative_gas_used.toString() },
+    {name: 'Transaction Fee', value: (tx.gas_used * tx.gas_price).toString() },
     {name: 'Ethereum Price', value: "$3,878.46" },
     {name: 'Gas Limit', value: tx.max_fee_per_gas.toString() },
     {name: 'Gas Fees', value: tx.gas_used.toString()},
     {name: 'Gas Price', value: tx.gas_price.toString() },
 ]
 
-const confirmation = (transactions: number, total: number, address: string) => {
+const confirmation = (confirmations: number, address: string) => {
 return (
   <div className={styles.confirmation}>
     <div>
-      <p>{transactions}/{total} CONFIRMATIONS</p> 
-      <div className={styles.flexLeft}><p>{address}</p> <CopyButton text={address}/></div>
+      <p>{confirmations} CONFIRMATIONS</p> 
+      <div className={styles.txHash}><p>{address}</p> <CopyButton text={address}/></div>
     </div>
-    <TxStatus confirmed={transactions == total} />
+    <TxStatus confirmed={confirmations > 24} />
   </div>
 )
 }
@@ -55,7 +55,7 @@ export const Transaction = (tx: any): React.ReactElement => {
           <Button variant="color" size={"small"} disabled={false} outline={false}>{"Swap"}</Button>
         </div>
       </div>
-      {confirmation(props.confirmations, 1231231, props.hash)}
+      {confirmation(props.confirmations, props.hash)}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableBody>

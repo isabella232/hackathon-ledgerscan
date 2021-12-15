@@ -19,6 +19,7 @@
   border-style: solid;
   border-color: aquamarine;
   color: aquamarine;
+  align-self: center;
 }
 
 .txStatusPending {
@@ -28,6 +29,7 @@
   border-style: solid;
   border-color: gray;
   color: gray;
+  align-self: center;
 }
 
 .confirmation {
@@ -66,9 +68,11 @@
 
 }
 
-.flexLeft {
+.txHash {
   display: flex;
   align-items: flex-start;
+  padding-top: 5px;
+  font-size: 12px;
 }
 
 .footerItem {
