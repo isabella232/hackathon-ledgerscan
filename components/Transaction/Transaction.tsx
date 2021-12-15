@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button, Flex, Text} from '@ledgerhq/react-ui'
+import {Button, Flex, Text, Link} from '@ledgerhq/react-ui'
 import * as trans from './model'
 import TxStatus from './TxStatus';
 import {CopyButton} from './CopyButton'
@@ -88,8 +88,12 @@ export const Transaction = (tx: any): React.ReactElement => {
         <Text variant='h3'>TRANSACTION DETAILS</Text>
         <Flex>  
           <MyButton variant="color" size={"small"} disabled={true} outline={false}>{"Stake"}</MyButton>
-          <MyButton variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</MyButton>
-          <MyButton variant="color" size={"small"} disabled={false} outline={false}>{"Swap"}</MyButton>
+          <Link href="ledgerlive://buy">
+            <MyButton variant="color" size={"small"} disabled={false} outline={false}>{"Buy"}</MyButton>
+          </Link>
+          <Link href="ledgerlive://swap">
+            <MyButton variant="color" size={"small"} disabled={false} outline={false}>Swap</MyButton>
+          </Link>
         </Flex>
       </div>
       {Confirmation(props.confirmations, props.hash, props.status == 1)}

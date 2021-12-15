@@ -2,9 +2,9 @@ import styled from "styled-components";
 import styles from '../../../styles/Home.module.css'
 import { useRouter } from "next/router"
 import { FaBitcoin } from 'react-icons/fa';
-import { BiCopy } from 'react-icons/bi';
 import { Alert, Button, Flex, Icon, Table, Text} from "@ledgerhq/react-ui";
 import { useState, useEffect } from "react"
+import { BiCopy } from "react-icons/bi"
 import {BtcTx} from "../../../components/BtcTx/BtcTx"
 import Image from "next/image";
 
